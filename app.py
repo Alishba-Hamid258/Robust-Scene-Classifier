@@ -31,10 +31,24 @@ def calculate_complexity(image: Image.Image):
     grayscale = image.convert('L')
     stat = ImageStat.Stat(grayscale)
     stddev = stat.stddev[0]
-    # Relaxed white ratio for Glaciers/Clouds (from 0.8 to 0.95)
-    white_ratio = np.sum(np.array(grayscale) > 235) / (grayscale.size[0] * grayscale.size[1])
-    if white_ratio > 0.95: return True, "Flat/White Image"
-    if stddev < 12: return True, "Extremely Low Contrast"
+    
+    arr = np.array(grayscale)
+    
+    # SHANNON ENTROPY: The ultimate mathematical measure of image "chaos"
+    # Natural landscapes have high entropy (7.0 to 8.0)
+    # Sketches, documents, and flat shapes have low entropy (1.0 to 5.5)
+    hist, _ = np.histogram(arr, bins=256, range=(0, 255))
+    hist = hist / np.sum(hist)
+    entropy = -np.sum([p * np.log2(p) for p in hist if p > 0])
+    
+    # 1. Sketch & Document Detection via Entropy
+    if entropy < 5.5: 
+        return True, f"Sketch/Document detected (Low Entropy: {entropy:.2f})"
+        
+    # 2. Low Contrast: Completely washed out/dark image
+    if stddev < 12: 
+        return True, "Extremely Low Contrast"
+        
     return False, None
 
 def preprocess_image(image: Image.Image):
@@ -49,6 +63,19 @@ async def predict(file: UploadFile = File(...)):
         contents = await file.read()
         pil_image = Image.open(io.BytesIO(contents)).convert("RGB")
         is_suspicious, suspicion_reason = calculate_complexity(pil_image)
+        
+        # 🛡️ THE SKETCH-BLOCKER: If it's a sketch/document, force it to 'other' instantly
+        if is_suspicious and ("Sketch" in suspicion_reason or "Document" in suspicion_reason):
+            scores = {val: 0.0 for val in LABELS.values()}
+            scores['other'] = 1.0
+            return {
+                "predicted_class": "other",
+                "confidence": 1.0,
+                "confidence_gap": 1.0,
+                "class_probabilities": scores,
+                "suspicion": suspicion_reason,
+                "is_confused": False
+            }
         
         img_array = preprocess_image(pil_image)
         predictions = model.predict(img_array)[0]
