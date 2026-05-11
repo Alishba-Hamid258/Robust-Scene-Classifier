@@ -1,0 +1,27 @@
+# Virtual Environment
+venv/
+env/
+ENV/
+.venv/
+
+# Python Cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# IDE and OS files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Junk and Obsolete Data
+obsolete_and_junk/
+
+# Local configuration or sensitive data
+.env
+*.log
+
+# Databases
+*.sqlite3
+*.db
