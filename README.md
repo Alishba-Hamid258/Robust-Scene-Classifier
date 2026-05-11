@@ -11,9 +11,9 @@ What sets this project apart is its **Industrial Guard** system: it does not jus
 ## 🚀 Features
 
 *   **Microservice Architecture**: Decoupled FastAPI backend and Streamlit frontend.
-*   **Intelligent Input Validation**: Rejects non-landscape images (drawings/documents) using statistical pixel variance.
-*   **Confidence Guardrails**: Calculates classification "entropy" (confidence gaps) to flag ambiguous predictions (e.g., Mountain vs. Glacier).
-*   **Adaptive UI**: Intelligently handles native image resolutions, displaying small dataset images in crisp "Polaroid" containers and HD photos at full width using lossless Base64 rendering.
+*   **Intelligent Input Validation**: Employs mathematical **Shannon Entropy** to measure pixel "chaos," actively rejecting non-landscape images (sketches/documents) regardless of JPEG noise.
+*   **Confidence Guardrails**: Calculates classification confidence gaps to flag ambiguous predictions (e.g., Mountain vs. Glacier).
+*   **Adaptive UI**: Intelligently handles native image resolutions, displaying small dataset images in crisp "Polaroid" containers and HD photos at full width using lossless Base64 HTML rendering.
 *   **Dynamic Configuration**: Cloud-ready path routing utilizing environment variables (`ML_WORK_DIR`) with automatic cross-platform fallback mechanisms.
 
 ## 🛠️ Tech Stack
@@ -27,7 +27,7 @@ What sets this project apart is its **Industrial Guard** system: it does not jus
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/YOUR_USERNAME/Robust-Scene-Classifier.git
+   git clone https://github.com/Alishba-Hamid258/Robust-Scene-Classifier.git
    cd Robust-Scene-Classifier
    ```
 
