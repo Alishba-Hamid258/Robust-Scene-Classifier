@@ -2,11 +2,27 @@
 
 A production-grade machine learning application designed to classify natural landscapes (buildings, forests, glaciers, mountains, sea, and streets) with high accuracy, while employing enterprise-level input validation and guardrails.
 
+![Universal Scene Classifier Dashboard](assets/ui_dashboard.jpg)
+
 ## 🌟 Overview
 
 The **Robust Scene Classifier** uses an advanced transfer-learning architecture (EfficientNetV2 base) to achieve **~92.3% accuracy** on environmental classifications. 
 
 What sets this project apart is its **Industrial Guard** system: it does not just blindly classify images. It calculates image complexity, brightness thresholds, and standard deviations to actively reject "garbage" data such as flat drawings, text documents, or overly confused inputs, preventing hallucinated predictions.
+
+## 📸 Interface & Live Demos
+
+### Dashboard & Industrial Guard Control Panel
+A dark-mode interface equipped with configurable confidence thresholds, ultra-strict mode toggles, and hardware pixel-mapping display controls.
+
+![Dashboard Overview](assets/ui_dashboard.jpg)
+
+### Inference & Confidence Breakdown
+
+| Architecture Classification (Buildings — 95.3%) | Landscape Classification (Mountain — 87.0%) |
+| :---: | :---: |
+| ![Buildings Classification](assets/prediction_buildings.jpg) | ![Mountain Classification](assets/prediction_mountain.jpg) |
+| *Real-time classification with confirmed prediction and class distribution breakdown.* | *Scene classification with dynamic confidence scoring and strict guardrail validation.* |
 
 ## 🚀 Features
 
